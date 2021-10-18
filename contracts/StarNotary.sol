@@ -25,11 +25,6 @@ contract StarNotary is ERC721 {
         starsForSale[_tokenId] = _price;
     }
 
-    // Function that allows you to convert an address into a payable address
-    // function _make_payable(address x) internal pure returns (address payable) {
-    //     return address(uint160(x));
-    // }
-
     function buyStar(uint256 _tokenId) public payable {
         require(starsForSale[_tokenId] > 0 ,"The Star should be up for sale");
         uint256 starPrice = starsForSale[_tokenId];
@@ -65,8 +60,6 @@ contract StarNotary is ERC721 {
         address secondStarOwner = ownerOf(_tokenId2);
         //4. Use _transferFrom function to exchange the tokens.
         if(firstStarOwner == msg.sender){
-            //setApprovalForAll(secondStarOwner, true);
-            //approve(secondStarOwner, _tokenId1);
             transferFrom(firstStarOwner, secondStarOwner, _tokenId1);
             approve(firstStarOwner, _tokenId2);
             transferFrom(secondStarOwner, firstStarOwner, _tokenId2);
@@ -74,10 +67,6 @@ contract StarNotary is ERC721 {
             transferFrom(firstStarOwner, secondStarOwner, _tokenId2);
             approve(firstStarOwner, _tokenId1);
             transferFrom(secondStarOwner, firstStarOwner, _tokenId1);
-           // setApprovalForAll(firstStarOwner, true);
-           // approve(firstStarOwner, _tokenId2);
-        //     transferFrom(secondStarOwner,firstStarOwner , _tokenId2);
-        //     transferFrom(firstStarOwner, secondStarOwner, _tokenId1);
         }
     }
 
